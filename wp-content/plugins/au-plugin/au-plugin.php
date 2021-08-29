@@ -40,6 +40,66 @@ function aupp_uninstall() {
     }
 }
 
+add_action('admin_menu',  __NAMESPACE__ .'\\aupp_create_menu');
 
+function aupp_create_menu()
+{
 
+    //create custom top-level menu
+    add_menu_page(
+        'AUPP Settings Page',
+        'AUPP Settings',
+        'manage_options',
+        'aupp-options',
+        __NAMESPACE__ .'\\aupp_settings_page',
+        'dashicons-smiley',
+        20);
+
+    //create submenu items
+    add_submenu_page( 'aupp-options', 'About The AUPP Plugin', 'About',
+        'manage_options', 'aupp-about', __NAMESPACE__ .'\\aupp_about_page' );
+    add_submenu_page( 'aupp-options', 'Help With The AUPP Plugin',
+        'Help', 'manage_options', 'aupp-help', __NAMESPACE__ .'\\aupp_help_page' );
+    add_submenu_page( 'aupp-options', 'Uninstall The AUPP Plugin',
+        'Uninstall', 'manage_options', 'aupp-uninstall', __NAMESPACE__ .'\\aupp_uninstall_page' );
+}
+
+//placerholder function for the settings page
+function aupp_settings_page()
+{
+
+}
+//placerholder function for the about page
+function aupp_about_page()
+{
+
+}
+//placerholder function for the help page
+function aupp_help_page()
+{
+
+}
+//placerholder function for the uninstall page
+function aupp_uninstall_page()
+{
+
+}
+
+add_action( 'admin_menu', __NAMESPACE__ .'\\aupp_create_submenu' );
+
+function aupp_create_submenu() {
+    //create a submenu under Settings
+    add_options_page( 'AUPP Plugin Settings', 'AUPP Settings', 'manage_options',
+        'aupp_plugin', __NAMESPACE__ .'\\aupp_plugin_option_page' );
+
+}
+
+add_action( 'admin_menu', __NAMESPACE__ .'\\aupp_create_users_submenu' );
+
+function aupp_create_users_submenu() {
+    //create a submenu under Users
+    add_users_page( 'AUPP Plugin Users Settings', 'AUPP Users Settings', 'manage_options',
+        'aupp_users_plugin', __NAMESPACE__ .'\\aupp_plugin_users' );
+
+}
 
